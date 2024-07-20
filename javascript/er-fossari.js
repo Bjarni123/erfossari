@@ -3,7 +3,7 @@
 const erFossariSvar = document.getElementById('erFossariSvar');
 
 const currentDate = new Date();
-let weekday = currentDate.getDay();
+const weekday = currentDate.getDay();
 
 console.log(weekday);
 
