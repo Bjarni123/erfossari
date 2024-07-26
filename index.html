@@ -4,6 +4,7 @@
 <title>Er Fossari</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 
@@ -11,15 +12,71 @@
 <p id="erFossariSvar"></p>
 <img src="https://picsum.photos/500/500/?blur=3" alt="Random image from picsum.photos">
 
-<form id="uploadForm">
-        <input type="image" id="imgInput">
-        <!-- 
-        <input type="submit" value="Upload">
-        -->
-        <button type="button" onclick="uploadImage()">Upload</button>
-</form>
-
 <script src="/javascript/er-fossari.js"></script>
+
+<main class="app">
+
+        <div class="header">
+                <h2>Upload Images</h2>
+                <div class="server-message"></div>
+        </div>
+
+        <div class="input-div">
+                <p>Drag & drop images here or <span class="browse">Browser</span></p>
+                <input type="file" class="file" multiple="multiple" accept="image/png, image/jpeg, image/jpg">
+        </div>
+
+        <form id="saved-form">
+                <div class="header">
+                        <h3>Saved in Server</h3>
+                        <button type="submit">Delete</button>
+                </div>
+                <div class="saved-div"></div>
+        </form>
+
+        <form id="queued-form">
+                <div class="header">
+                        <h3>Queued in frontend</h3>
+                        <button type="submit">Upload</button>
+                </div>
+                <div class="queued-div"></div>
+        </form>
+
+</main>
+
+<script>
+
+        let queuedImagesArray = [];
+        savedForm = document.querySelector('#saved-form');
+        queuedForm = document.querySelector('#queued-form');
+        savedDiv = document.querySelector('.saved-div');
+        queuedDiv = document.querySelector('.queued-div');
+        inputDiv = document.querySelector('.input-div');
+        input = document.querySelector('.input-div input');
+        serverMessage = document.querySelector('.server-message');
+        deleteImages = [];
+
+        // Saved in server images
+
+        // Queued in frontend images
+        input.addEventListener('change', () => {
+                const files = input.files;
+                for (let i = 0; i < files.length; i++) {
+                        queuedImagesArray.push(files[i]);
+                }
+                queuedForm.reset();
+                displayQueuedImages();
+        });
+
+        inputDiv.addEventListener('drop', (e) => {
+                e.preventDefault();
+                const files = e.dataTransfer.files;
+                console.log(files);
+        });
+
+
+</script>
+
 
 </body>
 </html>
